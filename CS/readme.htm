@@ -1,0 +1,68 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>ASPxGridView - Batch Edit - How to calculate values on the fly - Developer Express Example</title>
+<style>
+html, body, form 
+{
+	font-family: Tahoma, Arial, Verdana;
+    font-size: small;
+    color: #303440;
+}
+h1 {
+	font-size: 125%;
+	font-weight: normal;
+	color: Black;
+	letter-spacing: 101%;
+}
+</style>
+</head>
+<body>
+<h1>Developer Express Example<br />ASPxGridView - Batch Edit - How to calculate values on the fly</h1>
+<p>This example demonstrates how to create an unbound column that calculates the sum of other columns and changes its values on the fly when end-user changes any grid values using Batch edit mode. To implement the required task, perform the following steps:
+
+1. Create an unbound column in the same manner as described in the ASPxGridView.CustomUnboundColumnData Event (https://documentation.devexpress.com/#AspNet/DevExpressWebASPxGridViewASPxGridView_CustomUnboundColumnDatatopic) help article:
+
+<dx:GridViewDataTextColumn FieldName="Sum" UnboundType="Decimal" ReadOnly="true">
+</dx:GridViewDataTextColumn>
+
+protected void Grid_CustomUnboundColumnData(object sender, ASPxGridViewColumnDataEventArgs e) {
+	if (e.Column.FieldName == "Sum") {
+		decimal price = Convert.ToDecimal(e.GetListSourceFieldValue("Price"));
+		int quantity = Convert.ToInt32(e.GetListSourceFieldValue("Quantity"));
+ 		e.Value = price * quantity;
+	}
+}
+
+
+2. Handle the client-side ASPxClientGridView.BatchEditStartEditing (https://documentation.devexpress.com/#AspNet/DevExpressWebASPxGridViewScriptsASPxClientGridView_BatchEditStartEditingtopic) event to save the currently edited column name as a global JavaScript variable:
+
+var currentColumnName;
+function OnBatchEditStartEditing(s, e) {
+	currentColumnName = e.focusedColumn.fieldName;           
+}
+
+
+ 3. Handle the ASPxClientGridView.BatchEditEndEditing (https://documentation.devexpress.com/#AspNet/DevExpressWebASPxGridViewScriptsASPxClientGridView_BatchEditEndEditingtopic) event to re-calculate the values based on the new changes and set it to the unbound column using the ASPxClientGridViewBatchEditApi.SetCellValue (https://documentation.devexpress.com/#AspNet/DevExpressWebASPxGridViewScriptsASPxClientGridViewBatchEditApi_SetCellValuetopic) method:
+
+function OnBatchEditEndEditing(s, e) {
+	window.setTimeout(function () {
+		var price = s.batchEditApi.GetCellValue(e.visibleIndex, "Price");
+		var quantity = s.batchEditApi.GetCellValue(e.visibleIndex, "Quantity");
+		s.batchEditApi.SetCellValue(e.visibleIndex, "Sum", price * quantity);
+	}, 10);
+}
+
+
+ 
+See Also:
+
+http://www.devexpress.com/scid=T114923
+http://www.devexpress.com/scid=T116925 
+
+ASP.NET MVC Example:
+http://www.devexpress.com/scid=T124603</p>
+<p>You can find sample updates and versions for different programming languages here:<br /><a href="http://www.devexpress.com/example=T114539">http://www.devexpress.com/example=T114539</a>.</p>
+</body>
+</html>
