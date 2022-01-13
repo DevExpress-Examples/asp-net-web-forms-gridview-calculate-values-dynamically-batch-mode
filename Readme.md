@@ -1,39 +1,47 @@
-<!-- default badges list -->
-![](https://img.shields.io/endpoint?url=https://codecentral.devexpress.com/api/v1/VersionRange/128532814/16.1.4%2B)
-[![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T114539)
-[![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
-<!-- default badges end -->
-<!-- default file list -->
-*Files to look at*:
+# GridView for Web Forms - How to calculate values on the fly in batch edit mode
 
-* **[Default.aspx](./CS/Default.aspx) (VB: [Default.aspx](./VB/Default.aspx))**
-* [Default.aspx.cs](./CS/Default.aspx.cs) (VB: [Default.aspx.vb](./VB/Default.aspx.vb))
-<!-- default file list end -->
-# ASPxGridView - Batch Edit - How to calculate values on the fly
 <!-- run online -->
 **[[Run Online]](https://codecentral.devexpress.com/t114539/)**
 <!-- run online end -->
 
+This example demonstrates how to create an unbound column (**Sum**) that changes its values based on other column values on the fly in batch edit mode.
 
-<p>This example demonstrates how to create an unbound column that calculates the sum of other columns and changes its values on the fly when end-user changes any grid values using Batch edit mode. </p>
-<p>You can find detailed steps by clicking below the "Show Implementation Details" link .<br><strong><br>See Also:</strong></p>
-<p><a href="https://www.devexpress.com/Support/Center/p/T114923">ASPxGridView - How to update total summaries on the client side in Batch Edit mode</a><br><a href="https://www.devexpress.com/Support/Center/p/T116925">ASPxGridView - Batch Edit - How to calculate unbound column and total summary values on the fly</a> <br><a href="https://www.devexpress.com/Support/Center/p/T558750">ASPxGridView - Batch Edit - How to change a cell value based on another cell value</a><br><br><strong>ASP.NET MVC Example:</strong><br><a href="https://www.devexpress.com/Support/Center/p/T124603">GridView - Batch Edit - How to calculate values on the fly</a></p>
+![Grid View - Modified values](calculate-values-on-the-fly-batch-edit-mode.png)
+
+Set the unbound column's [ShowEditorInBatchEditMode](https://docs.devexpress.com/AspNet/DevExpress.Web.GridDataColumnSettings.ShowEditorInBatchEditMode) property to `false` to  make the column read-only in batch edit mode.
+
+```aspx
+<dx:GridViewDataTextColumn FieldName="Sum" UnboundType="Decimal" ReadOnly="true">
+    <Settings ShowEditorInBatchEditMode="false" />
+</dx:GridViewDataTextColumn>
+```
+
+Handle the client [BatchEditEndEditing](https://docs.devexpress.com/AspNet/js-ASPxClientGridView.BatchEditEndEditing) event to re-calculate column values based on the changes and call the [SetCellValue](https://docs.devexpress.com/AspNet/js-ASPxClientGridViewBatchEditApi.SetCellValue(visibleIndex-columnFieldNameOrId-value)) method to set the new column value.
+
+```js
+function OnBatchEditEndEditing(s, e) {
+    window.setTimeout(function () {
+        var price = s.batchEditApi.GetCellValue(e.visibleIndex, "Price");
+        var quantity = s.batchEditApi.GetCellValue(e.visibleIndex, "Quantity");
+        s.batchEditApi.SetCellValue(e.visibleIndex, "Sum", price * quantity, null, true);
+    }, 0);
+}
+```
+
+## Files to Look At
+
+<!-- default file list -->
+- [Default.aspx](./CS/Default.aspx) (VB: [Default.aspx](./VB/Default.aspx))
+<!-- default file list end -->
 
 
-<h3>Description</h3>
+## Documentation
 
-<p>Starting with v16.1, it's possible to modify cells without highlighting using the corresponding&nbsp;<a href="https://documentation.devexpress.com/#AspNet/DevExpressWebScriptsASPxClientGridViewBatchEditApi_SetCellValuetopic">ASPxClientGridViewBatchEditApi.SetCellValue</a>&nbsp;method overload and make a column non-editable for a user using the&nbsp;<a href="https://documentation.devexpress.com/#AspNet/DevExpressWebGridDataColumnSettings_ShowEditorInBatchEditModetopic">GridDataColumnSettings.ShowEditorInBatchEditMode</a>&nbsp;property.</p>
-<code lang="aspx"> &lt;dx:GridViewDataTextColumn FieldName="Sum" UnboundType="Decimal" ReadOnly="true"&gt;
-                &lt;Settings ShowEditorInBatchEditMode="false" /&gt;
- &lt;/dx:GridViewDataTextColumn&gt;</code>
-<code lang="js">function OnBatchEditEndEditing(s, e) {
-            window.setTimeout(function () {
-                var price = s.batchEditApi.GetCellValue(e.visibleIndex, "Price");
-                var quantity = s.batchEditApi.GetCellValue(e.visibleIndex, "Quantity");
-                s.batchEditApi.SetCellValue(e.visibleIndex, "Sum", price * quantity, null, true);
-            }, 0);
-}</code>
+- [Batch Edit Mode](https://docs.devexpress.com/AspNet/16443/components/grid-view/concepts/edit-data/batch-edit-mode)
 
-<br/>
+## More Examples
 
-
+- [GridView for MVC - How to calculate values on the fly in batch edit mode](https://github.com/DevExpress-Examples/gridview-batch-edit-how-to-calculate-values-on-the-fly-t124603)
+- [GridView for Web Forms - How to update total summaries on the client side in batch Edit mode](https://github.com/DevExpress-Examples/aspxgridview-how-to-update-total-summaries-on-the-client-side-in-batch-edit-mode-t114923)
+- [GridView for Web Forms -  How to calculate unbound column and total summary values on the fly in batch edit mode](https://github.com/DevExpress-Examples/aspxgridview-batch-edit-how-to-calculate-unbound-column-and-total-summary-values-on-the-fly-t116925)
+- [GridView for Web Forms - How to change a cell value based on another cell value in batch edit mode](https://github.com/DevExpress-Examples/aspxgridview-batch-edit-how-to-change-a-cell-value-based-on-another-cell-value-t558750)
