@@ -1,14 +1,14 @@
-# GridView for Web Forms - How to calculate values on the fly in batch edit mode
+# GridView for Web Forms - How to calculate values dynamically in batch edit mode
 
 <!-- run online -->
 **[[Run Online]](https://codecentral.devexpress.com/t114539/)**
 <!-- run online end -->
 
-This example demonstrates how to create an unbound column (**Sum**) that changes its values based on other column values on the fly in batch edit mode.
+This example demonstrates how to create an unbound column (**Sum**) that changes its values based on other column values dynamically in batch edit mode.
 
 ![Grid View - Modified values](calculate-values-on-the-fly-batch-edit-mode.png)
 
-Set the unbound column's [ShowEditorInBatchEditMode](https://docs.devexpress.com/AspNet/DevExpress.Web.GridDataColumnSettings.ShowEditorInBatchEditMode) property to `false` to  make the column read-only in batch edit mode.
+Set the unbound column's [ShowEditorInBatchEditMode](https://docs.devexpress.com/AspNet/DevExpress.Web.GridDataColumnSettings.ShowEditorInBatchEditMode) property to `false` to make the column read-only in batch edit mode.
 
 ```aspx
 <dx:GridViewDataTextColumn FieldName="Sum" UnboundType="Decimal" ReadOnly="true">
@@ -16,7 +16,7 @@ Set the unbound column's [ShowEditorInBatchEditMode](https://docs.devexpress.com
 </dx:GridViewDataTextColumn>
 ```
 
-Handle the client [BatchEditEndEditing](https://docs.devexpress.com/AspNet/js-ASPxClientGridView.BatchEditEndEditing) event to re-calculate column values based on the changes and call the [SetCellValue](https://docs.devexpress.com/AspNet/js-ASPxClientGridViewBatchEditApi.SetCellValue(visibleIndex-columnFieldNameOrId-value)) method to set the new column value.
+Handle the client [BatchEditEndEditing](https://docs.devexpress.com/AspNet/js-ASPxClientGridView.BatchEditEndEditing) event to recalculate column values based on the changes and call the [SetCellValue](https://docs.devexpress.com/AspNet/js-ASPxClientGridViewBatchEditApi.SetCellValue(visibleIndex-columnFieldNameOrId-value)) method to set the new column value.
 
 ```js
 function OnBatchEditEndEditing(s, e) {
