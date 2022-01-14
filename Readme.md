@@ -11,7 +11,7 @@
 <!-- default file list end -->
 # ASPxGridView - Batch Edit - How to calculate values on the fly
 <!-- run online -->
-**[[Run Online]](https://codecentral.devexpress.com/t114539/)**
+**[[Run Online]](https://codecentral.devexpress.com/128532814/)**
 <!-- run online end -->
 
 
