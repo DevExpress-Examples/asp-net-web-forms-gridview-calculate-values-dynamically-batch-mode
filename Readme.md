@@ -6,7 +6,7 @@
 # GridView for Web Forms - How to calculate values dynamically in batch edit mode
 
 <!-- run online -->
-**[[Run Online]](https://codecentral.devexpress.com/t114539/)**
+**[[Run Online]](https://codecentral.devexpress.com/128532814/)**
 <!-- run online end -->
 
 This example demonstrates how to create an unbound column (**Sum**) that changes its values based on other column values dynamically in batch edit mode.
