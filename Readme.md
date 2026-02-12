@@ -49,7 +49,7 @@ function OnBatchEditEndEditing(s, e) {
 - [GridView for Web Forms -  How to calculate unbound column and total summary values on the fly in batch edit mode](https://github.com/DevExpress-Examples/aspxgridview-batch-edit-how-to-calculate-unbound-column-and-total-summary-values-on-the-fly-t116925)
 - [GridView for Web Forms - How to change a cell value based on another cell value in batch edit mode](https://github.com/DevExpress-Examples/aspxgridview-batch-edit-how-to-change-a-cell-value-based-on-another-cell-value-t558750)
 <!-- feedback -->
-## Does this example address your development requirements/objectives?
+## Does This Example Address Your Development Requirements/Objectives?
 
 [<img src="https://www.devexpress.com/support/examples/i/yes-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=asp-net-web-forms-gridview-calculate-values-dynamically-batch-mode&~~~was_helpful=yes) [<img src="https://www.devexpress.com/support/examples/i/no-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=asp-net-web-forms-gridview-calculate-values-dynamically-batch-mode&~~~was_helpful=no)
 
